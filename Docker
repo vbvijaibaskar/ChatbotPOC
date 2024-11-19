@@ -1,0 +1,30 @@
+FROM python:3.12
+
+ENV HTTP_PROXY=http://ATC3KOR:%23Gandalf%40666137@rb-proxy-unix-apac.bosch.com:8080
+ENV HTTPS_PROXY=http://ATC3KOR:%23Gandalf%40666137@rb-proxy-unix-apac.bosch.com:8080
+
+
+WORKDIR /app
+
+COPY requirement.txt .
+
+RUN pip3 install -r requirement.txt --timeout=120 --retries=100
+RUN pip3 install gunicorn --timeout=120 --retries=100
+RUN pip3 install openpyxl --timeout=120 --retries=100
+
+COPY app.py /app
+COPY model.py /app
+COPY model_service.py /app
+COPY QMFEL_QMUR_10K.XLSX /app
+COPY german-gpt2-local/ /app/german-gpt2-local
+COPY torch-2.5.1-cp312-cp312-manylinux1_x86_64.whl /app
+COPY trained-generator-model-epoch7 /app
+
+RUN pip3 install torch-2.5.1-cp312-cp312-manylinux1_x86_64.whl --timeout=120 --retries=100
+
+RUN python3 model.py
+
+RUN chgrp -R nogroup /app && \
+    chmod -R 777 /app
+
+RUN unset http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY
