@@ -1,1 +1,92 @@
+RACE/Vitaa issues .	Solution
+Forward  the work-item from the user work center to the correct user.	1.Contact the user to collect the details about the correct user who needs to complete the work-item.                                                                                            2.In PT0 system open the transaction code SWIA.                                          3.enter the work-item ID in the field Identification and click on the execute button it will take you to the work-item details.                                                                                               4.Click on the administration forward button and enter the User ID in the USER feild and click on the continue button.                                                                  5.you will get message as The work-item succesfully forwarded to the user.                                                                                                           6.To make sure open the request number via RACE search page and check whether the user ID is upfdated in the work-item or not.                                                          
+Wrong part number in the part number table .	1. seach for the request number in the RACE search page and open the request in edit mode.                                                                                                             2.Select the Part number using radio button and click on the Delete SNR button and save the page .                                                                                                          3. To make sure the Part number is deleted or not refresh the page and inform the user.
+Remove Flag Migrated from the filed "Cancelled by"	1.Run the /RB0T/T_ER_SNR table and enter the Part number and Part number type for the field SNR and SNR Type and click on execute button.           2. Select entries page will open then click on the excel file button Select the path to desktop and save it.                                                                                             3.open that excel fill on desktop Then make the changes and save it.                   4.Run the “/RB0T/RACE_MODIFY_SNR_TABLE” program and Import the file which we have saved in the desktop  and select the update entries radio button and click on execute button Then the excel sheet data will automatically  update.            5.search for the Part number in the RACE search page and open it to make sure the feild "Cancelled by " updated , once it updated inform the user.
+Release request was locked , user can not edit the request.	1. To check whether the User ID is locked or not Use the Transaction code SM12 .                                                                                                                                2.enter the USER ID in the field Table name and click on list.                                   3.if the USER ID is locked it will show the lock entries otherwise it will display the message as no lock entries foulnd.                                                                         4. if the lock entries found it will auto unlock with in 30 minutes. .                        5.if there is any emergency to access RACE directly contact the Admin to unlock the USER ID and once the unlock is done contact the user to inform.
+Change the data of the Header in RACE	1. Use the transaction code SE16N to get the attribute ID of the field .                   2. Run the /RB0T/ERHEADER_ATTR_UPD  progarm and click on execute .            3.Dowload the input file format on desktop and open it .                                              4. fill the required feild entries ECR ID, feild name and feild value and save it.    5. Run the program /RB0T/ERHEADER_ATTR_UPD  program to import the excel file in local file feild  and click on excecute , it will read the excel file to update the header data feilds and display the message as update succesfully and refreshed succesfully .                                                                                               6.To make sure that you can open the request via Race search page and check whether the data is updated or not and inform the user .                                                                                          
+login credential issue to access PT0-RACE	"If the Password is expired it will not allow the user to login to the RACE. So, user needs to reset/change the password to access RACE                                       provide the Steps to Change password.
+1. Click on the link : SAP - Change password / SAP - Fetch password (27.6.2023) (bosch.com)
+2. Select Resource as PT0011 …
+3. Enter your NT ID
+4. Click on reset password
+5. Copy the new password created by reset password and go for the RACE login page and make a try to login with User ID and  new password and click on submit.                                                                                                                                   6. Then it will take you to the RACE page and also you will be able to access RACE .
+"
+Forward work item from one user to responsible user	1. Collect the work item details from the user and information about the correct user who needs to complete the work item.  2. Open SWIA T code in PT0 system and provide Work item ID 3. press execute button, work items details screen will open.     4. click the administration forward button      and provide required user NTID, then click 'OK'. 5. you will get a message like work item forwarded successfully. 6. For confirmation check that respected part number or PIPO in VitAA search and go to PI/PO history check the latest work item was forwarded to the user by clicking person icon.
+Upload vendor+CoD data into migration	1. Contact the user and collect the data filled excel file.2. open SAP PT0 application and open T code SA38 for report. 3. provide the report name /RB0T/PIPO2_SD_MIGRATION and execute. 4. In next page select radio button as create and choose file from system and execute. 5. After uploading the file as result you will get the uploaded data, can save with excel sheet again.6. check with user for confirmation for the data uploading.
+Entries delete from GTIN historical Table	1.  By contacting customer, list out the GTIN numbers which needs to be deleted from the Historical table.2. open PT0 application and use T-code SE93.3. Enter the transaction  /RB0T/PIPO2_HIS_GTIN and execute. 4. It will open into 'Display parameter Transaction'. press F8.    5. GTIN historical table will open, copy the GTIN numbers one by one and search with "position".6. after opening the VIEW for the table entries, select the GTIN entry and click the delete button then save it. do it for all entries which need to be deleted. 7. and for confirmation check this entries in SM37 if there is no entries for these GTIN's then those were deleted successfully.
+CPP Price not maintaining/part stuck in PI5800/part num is in wait event	1. collect PI# info which stuck in one particular step, in PI5800 there is a wait event for completing process step. 2. wait event triggered for CPP price reaching to VITAA, if the price was not available in VitAA then wait event will there for 3 or more days. on that time dialogue task won’t be create, then it won't visible in users worklist.3. Select the part num and Open T-code SLG1 in PT0, then check logs for that part. if price not maintained for material ask to KP1 system POC to resend the price. 4. Once Price assigned to the material then the wait event will complete dialog task will create visible in worklist.
+Packaging Index was not assigning to Phase in, showing Dollar symbols instead of Index	1. those started Phase Ins were very old and when I reached it to PI2000, index was there in table level but not showing in VITAA overview page. 2. checked that if any CRs were pending at Material level, so its not able to edit the index. 3. decline the old existing Phase In and start a new one with the same material and packaging index. 4. make sure that new PI# had the Index in OVP and passed PI2000 step successfully.
+About phase out/getting phase out error while submitting Run Criteria check /or getting 500 internal server error / search reasult not available	Reasons must be according to times 1. For 500 internal server error, need to check that which type of exemption was getting, and check related RFC connection failed. 2. Need to clear users browsing history, cache and cookies. 3. Sometimes if user went for long leave came back after a long gap, might be there is an issue with Roles and system access. if system or roles expired, request for extend.  4. if not about above reasons need to check technical side.  5. grab technical details and check related class and method, replicate the issue in quality and check with debugging mode.  6. if any technical changes required, use the template for ticket analysis and assign the Incident to the 3L team.
+CPP Missing during Phase in from KP1	If stuck in PI58, reset back to PI53
+PI3120 Dialog task Ready even after decision Yes	Restart the workitem ID using SWIA
+Cus table data discrepancy/ Missing Log	"Check the spool data received from PIG interface Job run, if count mismatch, 
+restart the job for data update"
+Reset the status workitem Steps PI/PO	Execute  /N/RB0T/PIPO2_ADMIN - sync KP1 status
+VitAA worklist and VitAA cockpit do not load when user clicks on the tile in launchpad	"P : VitAA worklist and VitAA cockpit do not load when user clicks on the tile in launchpad
+U : this could be issue with authorization or user account issue
+L : User has all the required roles. Informed user to try and unlock user account in PT0 and PXG and contact us"
+user was unable to edit the material and got 500 dump when tried to edit material in PT0	" : user was unable to edit the material and got 500 dump when tried to edit material in PT0
+U : issue occurred due to user personalization settings
+L : as per the steps from OSS note 0002700880, user personalization settings was reset in the material and the issue resolved"
+Legal Conformity not matching to CR document information	"P : Legal Conformity not matching to CR document information
+U : Due to migration error the data was overwritten
+L : Workaround by user accepted: Change the data again manually in Product Life."
+PH change in central PH module should not be registered in PT0 and so change don’t reach the existing Materialmaster	"P : PH change in central PH module should not be registered in PT0 and so change don’t reach the existing Materialmaster
+U : SNR10 were locked in the CR because of which the job to update the PH did not pick these SNR10
+L : Change requests were processed and then the job to update PH was triggered."
+couldn’t use SAP calendar directly to UC4 job.	"U : GTIN wrongly maintained
+L : Delete wrong maintained from HIS GTIN table on PT0"
+Getting error while submitting the PI2000 step in Phase-in Process	(Class - /RB0T/FIT_CL_CLASSIFICAITON_SP Method -CHECK_CLASSIFICATION_DATA to check)
+Macs Problem with search function in CG02	In Macs Authorization Issue with Search Function CG02 can be due to  missing Parameter . In Transaction  SU3 , Maintain Parameter ES6 with value PC_MAT .
+Macs For Part numbers no collective part number transfer is done	"If the Part Numbers are not transferred collectively  ,  
+Check For : .
+1.In Table Z0MB_STKO_AUX and Z0MB_STPO_AUX , check for Validity in field Z0MB_VTDATE.
+2. Data should be  available  in table Z0MB_MAST.
+Class :- Z0MEHS_CL_HLP_BOMBOS
+Method: READ_BOM_DATA_V3
+CDS View: Z0MB_C_TB4MCORE_E
+Link: https://inside-docupedia.bosch.com/confluence/display/MACS/Collective+numbers+not+exploded"
+Macs BOMBOS should be transferred as BOM transfer instead of Single material transfer.	"For BOMBOS Transfer  to be Successful  
+1.Procurement type should 'E' or 'X' and not Empty.
+2.Value of Field zbbm_yerzkennz field from table z0mm_xmara table should be 'SN' . 
+3.Value of field zbbm_ybaustufp  of table z0mm_xmarc should be '0' or '10' or '30' or 'E' instead of 'F'
+4.UOM maintained in table Z0MB_STPO should also be maintained  in table  T006 .  Responsible department need to contained to  Master Data Maintenance .
+5.In Table Z0MB_MAST ,  Alternative BOM should only be maintained as  1-10(as per TCG91 table). 
+“Same material in different alternative group is not support”.
+CDS View: CDS View: Z0mehs_Bro_Bom_Search_Bbm
+Link: https://inside-docupedia.bosch.com/confluence/display/MACS/BOM+-+Not+available+for+BOMBOS"
+Macs Copy did not happen from automotive to non-automotive	"Reasons For Macs Copy did not happen from automotive to non-automotive : 
+1. Copied date in CPYL table is earlier than creation date of  non-automotive compliance work bench component. 
+        - Manually copy the data sheet of automotive IMDS .
+2.IMDS supplier is not mapped to non-automotive supplier.
+        -  User can be requested to map the supplier
+Link: https://inside-docupedia.bosch.com/confluence/display/MACS/Automotive+to+non-automotive+copy+did+not+happen"
+Macs Error on Supplier Version	"Error in Supplier Version can be due to Inconsistency in Data 
+Sheet.Data sheet to be requested from DXC and to be Reimported . Ticket Ref :  INC000024542190"
+Macs Data sheet supplier sent for approval does not appear in our MaCS system	In Macs, Supplier Sheet sent for approval may not appear when Specification was not created. Problem can  be solved by Re-importing Data Sheet. 
+Macs Clean up BOMBOS queue on PT3	Need to change BOMBOS transfer status from Running to Error using report Z0MEHS_R_BOMBOS_STATUS_UPD2.
+Rejection reason not registered - MaCS - PT3	In General , Rejection note for part and cannot be added and IMDS couldn't rejected due to issue in browser setting
+Macs Incorrect warning regarding recyclate question in Automotive IMDS checker	"When there is Macs Incorrect warning regarding recyclate question in Automotive IMDS checker, 
+Structure Reimport of the Material is Required to resolve Incorrect Warning. 
+"
+unknown suppliers listed for materials in MaCS	  Workaround: Deactivate the unknown supplier (Other than Starcode) manually from Weight and composition tab.
+Macs SCIP Upload for Bosch Rexroth Czech not possible#	 User generated the new S2S Key.And we executed the report(/OPE/PN3_S2S_R_SET_KEY) to       fix the issue.  
+PT3 Macs-Recyclate Question not yet answered” error shown. in IMDS system,	"1. Change the view screen recycalte value in IMDS, it will reflect in Macs.  
+2.  Change the view sub-screen recyclate value in IMDS"
+Macs Deactivated material issue	 As IMDS Module ID & Version 176858577 / 2.000 is Hidden/Obsolete/Deactivated marked in ISMDS table. We asked the user to replace Hidden/Obsolete Module ID to ActiveModule ID.  
+No SCIP Notification generated in MaCS (EPN)	Run Smart input report to release EU-REACH SHVC checker for all the material to which user wants the SCIP notification to be generated.  
+"Part numbers not in SAP PT3 --> BOMBOS to MaCS not possible"#	"Need to perform Data analysis in MARA and Z0MM_XMARA. Data was not replicated from Z0mm_mara to mara table.
+Need to contact Tango team for Data replication based on matnr."
+Warning Message_Piece_KG#	 Correct the part  Base unit as kg. And change the CDO type to "BULK". 
+Supplier is not mapped to part number in compliance workbench for Non-automotive 	"Z0MM_SOS(Source of Supply) – It will give the company no.(vendor) to which material is linked
+Z0MM_MAIN_SUPPLI(Table for Supplier information from SRM) – Copy the company no. from sos table to vendor field in main_suppli to get the rbsno details.
+Z0MM_MAIN_SRMPLA - Copy plant from main suppli to get source sys.
+Z0MX_EINA- to check if info record is maintained for the specific supplier or not.
+ 
+If supplier is not available in Z0MM_MAIN_SUPPLI but available in Z0MM_SOS:
+ 
+First check Z0MX_EINA table to check info record is created or not for the mentioned supplier.
+If info record is there then run the report Z0MM_VENDOR_WS(it requires an input file with the missing rbsno/plant sno.
+Sometimes supplier will be there in both Z0MM_SOS and Z0MM_MAIN_SUPPLI then check the weight and composition tab of the material in nwbc screen and check if the supplier is “valid but inactive supplier”.
+Link: https://inside-docupedia.bosch.com/confluence/display/MACS/Debugging+BOMBOS"
 
