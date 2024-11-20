@@ -1,8 +1,5 @@
 FROM python:3.12
 
-ENV HTTP_PROXY=http://ATC3KOR:%23Gandalf%40666137@rb-proxy-unix-apac.bosch.com:8080
-ENV HTTPS_PROXY=http://ATC3KOR:%23Gandalf%40666137@rb-proxy-unix-apac.bosch.com:8080
-
 
 WORKDIR /app
 
